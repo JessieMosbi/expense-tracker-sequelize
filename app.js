@@ -9,7 +9,11 @@ app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
-// route
+// router
+app.use('/', require('./routes/home.js'))
+app.use('/users', require('./routes/user.js'))
+app.use('/records', require('./routes/record.js'))
+
 app.get('/', (req, res) => {
   res.render('index')
 })
