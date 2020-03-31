@@ -3,7 +3,7 @@ const router = express.Router()
 
 // 新增
 router.get('/new', (req, res) => {
-  res.send('新增支出頁面')
+  res.render('edit')
 })
 
 router.post('/new', (req, res) => {
@@ -12,7 +12,7 @@ router.post('/new', (req, res) => {
 
 // 編輯
 router.get('/edit/:id', (req, res) => {
-  res.send('編輯支出頁面')
+  res.render('edit')
 })
 
 router.put('/:id', (req, res) => {

@@ -14,14 +14,6 @@ app.use('/', require('./routes/home.js'))
 app.use('/users', require('./routes/user.js'))
 app.use('/records', require('./routes/record.js'))
 
-app.get('/', (req, res) => {
-  res.render('index')
-})
-
-app.delete('/', (req, res) => {
-  console.log('delete index')
-})
-
 app.listen(3000, (req, res) => {
   console.log('Server start listening port 3000')
 })
