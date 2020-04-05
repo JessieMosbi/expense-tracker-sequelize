@@ -50,7 +50,10 @@ router.post('/register', (req, res) => {
               email,
               password: hash
             })
-              .then((user) => res.redirect('/'))
+              .then((user) => {
+                req.flash('success_msg', '您已註冊成功，請立即登入')
+                res.redirect('/users/login')
+              })
               .catch((err) => console.log(err))
           })
         })
