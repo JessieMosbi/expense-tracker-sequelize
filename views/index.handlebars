@@ -5,13 +5,13 @@
     <form action="/" class="form-inline d-flex justify-content-around">
       <select class="form-control" id="month" name="month" onchange="this.form.submit()">
         {{#each months}}
-          <option value="{{this.id}}" {{#ifEqual this.id ../selMonth}}{{/ifEqual}}>
+          <option value="{{this.id}}" {{#selectIfEqual this.id ../selMonth}}{{/selectIfEqual}}>
             {{this.name}}</option>
         {{/each}}
       </select>
       <select class="form-control" id="category" name="category" onchange="this.form.submit()">
         {{#each categories}}
-          <option value="{{this.id}}" {{#ifEqual this.id ../selCategory}}{{/ifEqual}}>
+          <option value="{{this.id}}" {{#selectIfEqual this.id ../selCategory}}{{/selectIfEqual}}>
             {{this.name}}</option>
         {{/each}}
       </select>
