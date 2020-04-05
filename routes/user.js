@@ -17,7 +17,7 @@ router.post('/register', (req, res) => {
   const errors = []
 
   // check value
-  if (!name || !email || !password || !password2) {
+  if (!name.trim() || !email.trim() || !password.trim() || !password2.trim()) {
     errors.push({ message: '所有欄位均為必填' })
   }
   if (password !== password2) {
