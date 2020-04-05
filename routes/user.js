@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
+const passport = require('passport')
 
 // model
 const db = require('../models')
@@ -62,13 +63,26 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', (req, res) => {
-  res.send('登入')
+router.post('/login', (req, res, next) => {
+  // check value
+  const { email, password } = req.body
+  if (!email.trim() || !password.trim()) {
+    res.render('login', { email, password, warning_msg: '所有欄位均為必填' })
+    return false
+  }
+
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/users/login',
+    failureFlash: '帳密錯誤，請重新登入' // flash an error message
+  })(req, res, next)
 })
 
 // 登出
 router.get('/logout', (req, res) => {
-  res.send('登出')
+  req.logout()
+  req.flash('success_msg', '您已成功登出，若欲繼續使用請重新登入')
+  res.redirect('/users/login')
 })
 
 module.exports = router

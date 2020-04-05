@@ -3,6 +3,8 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
+const session = require('express-session')
+const passport = require('passport')
 
 const app = express()
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -10,6 +12,30 @@ app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(flash())
+
+// session and passport
+app.use(session({
+  secret: 'Jessie secret key',
+  cookie: {
+    maxAge: 60 * 30 * 1000
+  },
+  resave: 'false',
+  saveUninitialized: 'false'
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+require('./config/passport')(passport)
+
+// express locals (store params for views to use)
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.welcome_msg = req.flash('success') // passport
+  res.locals.error_msg = req.flash('error') // passport
+  res.locals.success_msg = req.flash('success_msg') // mine
+  res.locals.warning_msg = req.flash('warning_msg') // mine
+  next()
+})
 
 // router
 app.use('/', require('./routes/home.js'))
