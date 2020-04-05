@@ -58,13 +58,13 @@ FACEBOOK_CALLBACK=http://localhost:3000/auth/facebook/callback
 ![scrrenshot](https://github.com/JessieMosbi/todo-sequelize/blob/master/image/MySQL_active.png?raw=true)
 
 進到專案資料夾底下，建立專案所需資料庫 (注意: 若有相同名稱的資料庫將會被刪除)
-```
+```console
 cd <Your download directory>/expense-tracker-sequelize
 npx sequelize db:drop
 npx sequelize db:create
 ```
 
-執行 migrations 檔案，以建立專案所需資料庫、資料表、欄位
+執行 migrations 檔案，以建立專案所需資料表、欄位
 ```console
 npx sequelize db:migrate
 ```
