@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
+// model
+const db = require('../models')
+const Record = db.Record
+const User = db.User
+
 // 新增
 router.get('/new', (req, res) => {
   res.render('edit')

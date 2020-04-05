@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+// model
+const db = require('../models')
+const User = db.User
+
 // 註冊
 router.get('/register', (req, res) => {
   res.render('register')
