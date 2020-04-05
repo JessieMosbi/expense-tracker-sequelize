@@ -4,10 +4,16 @@
   <div class="col-4">
     <form action="/" class="form-inline d-flex justify-content-around">
       <select class="form-control" id="month" name="month" onchange="this.form.submit()">
-        <option>月份</option>
+        {{#each months}}
+          <option value="{{this.id}}" {{#ifEqual this.id ../selMonth}}{{/ifEqual}}>
+            {{this.name}}</option>
+        {{/each}}
       </select>
       <select class="form-control" id="category" name="category" onchange="this.form.submit()">
-        <option>類型</option>
+        {{#each categories}}
+          <option value="{{this.id}}" {{#ifEqual this.id ../selCategory}}{{/ifEqual}}>
+            {{this.name}}</option>
+        {{/each}}
       </select>
     </form>
   </div>
@@ -20,7 +26,7 @@
   <div class="col-3"></div>
   <div class="col-4">
     <h4>總金額</h4>
-    <h1 class="text-right"><span id="total-amount">123</span></h1>
+    <h1 class="text-right"><span id="total-amount">{{totalAmount}}</span></h1>
   </div>
 </div>
 {{!-- List 區塊 --}}
@@ -28,33 +34,35 @@
   <div class="col-3"></div>
   <div class="col-9">
     <div class="row justify-content-between">
-      {{!-- 明細 --}}
-      <div class="col-6">
-        <div class="list-group">
-          <a href="javascript:;" class="list-group-item list-group-item-action">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-center">
-                [ICON]
-                <div class="d-flex flex-column ml-2">
-                  <span>[name]</span>
-                  <span>[date]</span>
+      {{#each records}}
+        {{!-- 明細 --}}
+        <div class="col-6">
+          <div class="list-group">
+            <a href="javascript:;" class="list-group-item list-group-item-action">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  {{{this.icon}}}
+                  <div class="d-flex flex-column ml-2">
+                    <span>{{this.name}}</span>
+                    <span>{{this.date}}</span>
+                  </div>
                 </div>
+                <span>{{this.merchant}}</span>
+                <span>{{this.amount}}</span>
               </div>
-              <span>[merchant]</span>
-              <span>[amount]</span>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
-      </div>
-      {{!-- 按鈕 --}}
-      <div class="col-6 d-flex align-items-center">
-        <form action="/records/edit/1">
-          <button type="submit" class="btn btn-info mr-2">修改</button>
-        </form>
-        <form action="/records/1?_method=DELETE" method="POST">
-          <button type="submit" class="btn btn-warning">刪除</button>
-        </form>
-      </div>
+        {{!-- 按鈕 --}}
+        <div class="col-6 d-flex align-items-center">
+          <form action="/records/edit/{{this.id}}">
+            <button type="submit" class="btn btn-info mr-2">修改</button>
+          </form>
+          <form action="/records/{{this.id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-warning">刪除</button>
+          </form>
+        </div>
+      {{/each}}
     </div>
   </div>
   {{!-- 按鈕 --}}
