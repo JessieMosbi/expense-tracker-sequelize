@@ -7,6 +7,10 @@ const session = require('express-session')
 const passport = require('passport')
 
 const app = express()
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -41,6 +45,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/home.js'))
 app.use('/users', require('./routes/user.js'))
 app.use('/records', require('./routes/record.js'))
+app.use('/auth', require('./routes/auths.js'))
 
 app.listen(3000, (req, res) => {
   console.log('Server start listening port 3000')
